@@ -67,13 +67,13 @@ function briefBlock(b: BriefInput, lang: Lang): string {
     [L ? "Call time" : "Heure d'appel", b.callTime],
     [L ? "Crew/cast" : "Équipe/cast", b.crewSize],
     [L ? "Gear" : "Gear", b.gear],
-    [L ? "Constraints" : "Contraintes", b.constraints.join(", ")],
+    [L ? "Constraints" : "Contraintes", (b.constraints ?? []).join(", ")],
   ];
   const lines = rows
     .filter(([, v]) => v && v.trim())
     .map(([k, v]) => `- ${k}: ${v.trim()}`);
   lines.push("");
-  lines.push((L ? "SCENE: " : "SCÈNE : ") + b.scene.trim());
+  lines.push((L ? "SCENE: " : "SCÈNE : ") + (b.scene ?? "").trim());
   return lines.join("\n");
 }
 
