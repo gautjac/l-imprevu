@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #16151a;
+  /* faint flight-case texture + warm caution glow in two corners */
+  background-image:
+    radial-gradient(circle at 14% 6%, rgba(245, 160, 31, 0.07), transparent 40%),
+    radial-gradient(circle at 88% 96%, rgba(255, 90, 31, 0.06), transparent 44%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  color: #ece6da;
+  font-family: "Archivo Narrow", "Arial Narrow", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The signature hazard stripe — caution amber on ink, 45°. Used sparingly. */
+.hazard {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #f5a01f 0,
+    #f5a01f 11px,
+    #16151a 11px,
+    #16151a 22px
+  );
+}
+.hazard-thin {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(245, 160, 31, 0.85) 0,
+    rgba(245, 160, 31, 0.85) 7px,
+    transparent 7px,
+    transparent 14px
+  );
+}
+
+/* Gaffer-tape strip: matte, frayed-edge feel via subtle shadow. */
+.tape {
+  background: #26242c;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.4) inset;
+}
+
+/* A printer's hairline rule on dark stock. */
+.hairline {
+  border: none;
+  height: 0;
+  border-top: 1px solid rgba(236, 230, 218, 0.16);
+}
+
+/* Punch-card perforation top edge for report cards. */
+.perf {
+  -webkit-mask-image: radial-gradient(circle 4px at 8px 0, transparent 3.5px, #000 4px);
+  mask-image: radial-gradient(circle 4px at 8px 0, transparent 3.5px, #000 4px);
+  -webkit-mask-size: 16px 100%;
+  mask-size: 16px 100%;
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+}
+
+/* Scan line wrapper used in loading state. */
+.scanbox {
+  position: relative;
+  overflow: hidden;
+}
+.scanbox::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 38%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(245, 160, 31, 0.16),
+    transparent
+  );
+  animation: scan 2.4s linear infinite;
+  pointer-events: none;
+}
+
+/* Custom scrollbars to match the case. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #46424f #1c1b21;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: #1c1b21;
+}
+*::-webkit-scrollbar-thumb {
+  background: #3a3742;
+  border-radius: 6px;
+  border: 2px solid #1c1b21;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+textarea {
+  resize: vertical;
+}
+
+::selection {
+  background: rgba(245, 160, 31, 0.3);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .scanbox::after {
+    display: none;
+  }
+}
